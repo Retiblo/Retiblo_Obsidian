@@ -1,14 +1,7 @@
-import {
-  App,
-  Editor,
-  MarkdownView,
-  Notice,
-  Plugin,
-  PluginSettingTab,
-  Setting,
-} from 'obsidian';
+import { Editor, MarkdownView, Notice, Plugin } from 'obsidian';
 // Remember to rename these classes and interfaces!
 import SettingTabModal from './src/SettingTabModal';
+import SettingTabContainer from './src/SettingTabContainer';
 
 interface MyPluginSettings {
   mySetting: string;
@@ -29,7 +22,7 @@ export default class MyPlugin extends Plugin {
     // This creates an icon in the left ribbon.
     const ribbonIconEl = this.addRibbonIcon(
       'dice',
-      'Sample Plugin',
+      'Retiblo Obsidian',
       (evt: MouseEvent) => {
         // Called when the user clicks the icon.
         new Notice('This is a notice!');
@@ -85,7 +78,7 @@ export default class MyPlugin extends Plugin {
     // to here
 
     // This adds a settings tab so the user can configure various aspects of the plugin
-    this.addSettingTab(new SampleSettingTab(this.app, this));
+    this.addSettingTab(new SettingTabContainer(this.app, this));
 
     // If the plugin hooks up any global DOM events (on parts of the app that doesn't belong to this plugin)
     // Using this function will automatically remove the event listener when this plugin is disabled.
@@ -107,34 +100,5 @@ export default class MyPlugin extends Plugin {
 
   async saveSettings() {
     await this.saveData(this.settings);
-  }
-}
-
-class SampleSettingTab extends PluginSettingTab {
-  plugin: MyPlugin;
-
-  constructor(app: App, plugin: MyPlugin) {
-    super(app, plugin);
-    this.plugin = plugin;
-  }
-
-  display(): void {
-    const { containerEl } = this;
-
-    containerEl.empty();
-
-    // extend this Setting class to SettingTabCompo in Svelte Component
-    new Setting(containerEl)
-      .setName('Setting #1')
-      .setDesc("It's a secret")
-      .addText((text) =>
-        text
-          .setPlaceholder('Enter your secret')
-          .setValue(this.plugin.settings.mySetting)
-          .onChange(async (value) => {
-            this.plugin.settings.mySetting = value;
-            await this.plugin.saveSettings();
-          })
-      );
   }
 }
