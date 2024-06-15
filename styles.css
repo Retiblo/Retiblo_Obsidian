@@ -6,3 +6,10 @@ available in the app when your plugin is enabled.
 If your plugin does not need CSS, delete this file.
 
 */
+html {
+  font-size: 12px;
+}
+
+.vertical-tab-content:has(> div.retiblo-main) {
+  padding: 0;
+}
