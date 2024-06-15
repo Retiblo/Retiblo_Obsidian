@@ -7,16 +7,23 @@ module.exports = {
       parser: 'svelte-eslint-parser',
       parserOptions: {
         parser: '@typescript-eslint/parser',
+        svelteFeatures: {
+          /* -- Experimental Svelte Features -- */
+          /* It may be changed or removed in minor versions without notice. */
+          // Whether to parse the `generics` attribute.
+          // See https://github.com/sveltejs/rfcs/pull/38
+          experimentalGenerics: false,
+        },
       },
     },
-    // ...
   ],
-  env: { node: true },
-  plugins: ['@typescript-eslint', 'prettier'],
+  env: { node: true, browser: true },
+  plugins: ['@typescript-eslint', 'prettier', 'svelte'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
+    'plugin:svelte/recommended',
   ],
   parserOptions: {
     sourceType: 'module',
